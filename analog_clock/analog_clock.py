@@ -1,16 +1,13 @@
 import tkinter as tk
 from math import sin, cos, pi;
+from datetime import datetime
 
-def update_clock():
-    current_time = time_var.get()
-    seconds = current_time % 60
-    minutes = (current_time // 60) % 60
-    hours = (current_time // 3600) % 12
+time = datetime.now()
+time_hour = time.hour
+time_minute = time.minute
+time_second = time.second
 
-    seconds_angle = 90 - seconds * 6
-    minutes_angle = 90 - minutes * 6 - seconds * 0.1
-    hours_angle = 90 - (hours * 30 + minutes * 0.5)
-
+def dreaw_clock():
     canvas.delete("all")
     canvas.create_oval(50, 50, 250, 250)
 
@@ -22,16 +19,35 @@ def update_clock():
 
         canvas.create_text(x, y, text=str(i), font=("Arial", 12, "bold"))
 
-    dreaw_hand(150, 150, seconds_angle, 80, 1)
-    dreaw_hand(150, 150, minutes_angle, 70, 2)
-    dreaw_hand(150, 150, hours_angle, 50, 4)
+
+def update_pointers():
+    current_time = time_var.get()
+    
+    if second_number == 1:
+        seconds = time.second
+        minutes = time.minute
+        hours = current_time
+    else:
+        seconds = current_time % 60
+        minutes = (current_time // 60) % 60
+        hours = (current_time // 3600) % 12
+
+    seconds_angle = 90 - seconds * 6
+    minutes_angle = 90 - minutes * 6 - seconds * 0.1
+    hours_angle = 90 - (hours * 30 + minutes * 0.5)
+
+    dreaw_pointer(150, 150, seconds_angle, 80, 1)
+    dreaw_pointer(150, 150, minutes_angle, 70, 2)
+    dreaw_pointer(150, 150, hours_angle, 50, 4)
 
     time_var.set(current_time + 1)
 
-    root.after(50, update_clock)
+    second_number += 1
+
+    root.after(1000, update_pointers)
 
 
-def dreaw_hand(x, y, angle, length, width):
+def dreaw_pointer(x, y, angle, length, width):
     radian_angle = angle * (pi / 180)
     end_x = x + length * cos(radian_angle)
     end_y = y - length * sin(radian_angle)
@@ -45,7 +61,9 @@ canvas = tk.Canvas(root, width=350, height=350)
 canvas.pack()
 
 time_var = tk.IntVar()
-time_var.set(10 * 3600)
+time_var.set(time_hour * 3600)
 
-update_clock()
+dreaw_clock()
+update_pointers()
+
 root.mainloop()
