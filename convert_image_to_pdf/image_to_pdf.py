@@ -3,7 +3,6 @@ import img2pdf
 import os
 
 filepath = sys.argv[0]
-print(filepath)
 
 if os.path.isdir(filepath):
     with open("output.pdf", "wb") as f:
