@@ -27,7 +27,7 @@ def update_pointers():
     hours_angle = 90 - (hours * 30 + minutes * 0.5)
 
     draw_clock()
-    
+
     draw_pointer(150, 150, seconds_angle, 80, 1)
     draw_pointer(150, 150, minutes_angle, 70, 2)
     draw_pointer(150, 150, hours_angle, 50, 4)
