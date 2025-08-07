@@ -15,11 +15,13 @@ LABEL_COLOR = "#25265E"
 
 class Calculator:
     def __init__(self):
+        # Define a janela da calculadora.
         self.window = tk.Tk()
         self.window.geometry("375x667")
         self.window.resizable(0, 0)
         self.window.title("Calculator")
 
+        # Inicializa a região dos valores
         self.total_expression = ""
         self.current_expression = ""
         self.display_frame = self.create_display_frame()
@@ -34,3 +36,18 @@ class Calculator:
         }
 
         self.operations = {"/": "\u00F7", "*": "\00D7", "-": "-", "+": "+"}
+        self.buttons_frame = self.create_buttons_frame()
+
+        self.buttons_Frame.rowconfigure(0, weight=1)
+
+        for x in range(1, 5):
+            self.buttons_frame.rowcofigure(x, weight=1)
+            self.buttons_frame.columnconfigure(x, weight=1)
+
+        self.create_digit_buttons()
+        self.create_operator_buttons()
+        self.create_special_buttons()
+        self.bind_keys()
+    
+    def bind_keys(self):
+        self.window.bind("<Return>", lambda event: self.evaluate())
