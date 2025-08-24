@@ -143,6 +143,16 @@ class Calculator:
     def create_square_button(self):
         button = tk.Button(self.buttons_frame, text="x\u00b2", bg=OFF_WHITE, fg=LABEL_COLOR, font=DEFAULT_FONT_STYLE,
                            borderwidth=0, command=self.square)
+        button.grid(row=0, column=2, sticky=tk.NSEW)
+
+    def square(self):
+        self.current_expression = str(eval(f"{self.current_expression}**2"))
+        self.update_label()
+    
+    def create_sqrt_button(self):
+        button = tk.Button(self.buttons_frame, text="\u221ax", bg=OFF_WHITE, fg=LABEL_COLOR, font=DEFAULT_FONT_STYLE,
+                           borderwidth=0, command=self.sqrt)
+        button.grid(row=0, column=3, sticky=tk.NSEW)
 
     def run(self):
         self.window.mainloop()
